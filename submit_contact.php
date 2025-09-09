@@ -18,11 +18,11 @@
 
         <?php
         if (
-            empty($_POST['email']) ||
-            empty($_POST['message'])
+            !isset($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
+            || !isset($_POST['message']) || empty($_POST['message'])
         ) {
             echo '<h1>Site de recettes</h1>';
-            echo '<p>Il faut un email et un message pour soumettre le formulaire.</p>';
+            echo '<p>Il faut un email et un message valides pour soumettre le formulaire.</p>';
         } else {
         ?>
             <h1>Message bien reçu !</h1>
