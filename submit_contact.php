@@ -16,14 +16,26 @@
 
     <?php include_once('header.php'); ?>
 
-        <h1>Message bien reçu !</h1>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Rappel de vos informations</h5>
-                <p class="card-text"><b>Email</b> : <?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?> </p>
-                <p class="card-text"><b>Message</b> : <?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?> </p>
+        <?php
+        if (
+            empty($_POST['email']) ||
+            empty($_POST['message'])
+        ) {
+            echo '<h1>Site de recettes</h1>';
+            echo '<p>Il faut un email et un message pour soumettre le formulaire.</p>';
+        } else {
+        ?>
+            <h1>Message bien reçu !</h1>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Rappel de vos informations</h5>
+                    <p class="card-text"><b>Email</b> : <?php echo htmlspecialchars($_POST['email']); ?> </p>
+                    <p class="card-text"><b>Message</b> : <?php echo htmlspecialchars($_POST['message']); ?> </p>
+                </div>
             </div>
-        </div>
+        <?php
+        }
+        ?>
 
     </div>
 
