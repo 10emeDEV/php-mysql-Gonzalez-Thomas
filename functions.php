@@ -1,12 +1,22 @@
 <?php
 // functions.php
 
+function current_user() {
+    return isset($_SESSION['LOGGED_USER']) ? $_SESSION['LOGGED_USER'] : null;
+}
+
+function require_login() {
+    if (!current_user()) {
+        header('Location: index.php');
+        exit;
+    }
+}
+
 function isValidRecipe(array $recipe)
 {
     return isset($recipe['is_enabled']) ? $recipe['is_enabled'] : false;
 }
 
-// Correction du nom de la fonction pour correspondre à index.php
 function display_author($authorEmail, array $users)
 {
     foreach ($users as $author) {
