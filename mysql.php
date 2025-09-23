@@ -1,19 +1,18 @@
- <?php
-    const MYSQL_HOST     = 'localhost';
-    const MYSQL_PORT     = 3306;
-    const MYSQL_NAME     = 'my_recipes';
-    const MYSQL_USER     = 'root';
-    const MYSQL_PASSWORD = 'root';
+<?php
+const MYSQL_HOST     = 'localhost';
+const MYSQL_PORT     = 3306;
+const MYSQL_NAME     = 'my_recipes';
+const MYSQL_USER     = 'root';
+const MYSQL_PASSWORD = 'root';
 
-    try {
-        $db = new PDO(
-            sprintf('mysql:host=%s;dbname=%s;port=%s;charset=utf8',
-            MYSQL_HOST, MYSQL_NAME,MYSQL_PORT),
-            MYSQL_USER,
-            MYSQL_PASSWORD
-        );
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (Exception$exception) {
-        die('Erreur : '.$exception->getMessage());
-    }
- ?>
+try {
+    $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8', MYSQL_HOST, MYSQL_PORT, MYSQL_NAME);
+    $options = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   => false,
+    ];
+    $db = new PDO($dsn, MYSQL_USER, MYSQL_PASSWORD, $options);
+} catch (Exception $e) {
+    die('Erreur de connexion : ' . $e->getMessage());
+}

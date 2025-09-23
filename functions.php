@@ -34,3 +34,18 @@ function getRecipes(array $recipes)
 
     return $validRecipes;
 }
+
+function getValidRecipes(PDO $db, int $limit = 5)
+{
+    $sql = 'SELECT recipe_id, title, recipe, author, is_enabled
+            FROM recipes
+            WHERE is_enabled = 1
+            ORDER BY recipe_id DESC
+            LIMIT :limit';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+}

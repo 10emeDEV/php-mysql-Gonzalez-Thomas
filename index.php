@@ -18,13 +18,21 @@
     <?php include_once('header.php'); ?>
 
     <!-- Inclusion des fichiers utilitaires -->
-    <?php 
+    <?php
         include_once('variables.php');
         include_once('functions.php');
     ?>
 
     <!-- Inclusion du formulaire de connexion -->
     <?php include_once('login.php'); ?>
+
+    <?php
+        try {
+            $recipes = getValidRecipes($db, 5);
+        } catch (PDOException $e) {
+            die('Erreur lors de la récupération des recettes : ' . $e->getMessage());
+        }
+    ?>
     
     <h1>Site de Recettes !</h1>
 
