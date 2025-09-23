@@ -1,7 +1,7 @@
 <?php
 // functions.php
 
-function isValidRecipe(array $recipe) : bool
+function isValidRecipe(array $recipe)
 {
     if (array_key_exists('is_enabled', $recipe)) {
         $isEnabled = $recipe['is_enabled'];
@@ -12,7 +12,7 @@ function isValidRecipe(array $recipe) : bool
     return $isEnabled;
 }
 
-function displayAuthor(string $authorEmail, array $users) : string
+function displayAuthor(string $authorEmail, array $users)
 {
     for ($i = 0; $i < count($users); $i++) {
         $author = $users[$i];
@@ -22,7 +22,7 @@ function displayAuthor(string $authorEmail, array $users) : string
     }
 }
 
-function getRecipes(array $recipes) : array
+function getRecipes(array $recipes)
 {
     $validRecipes = [];
 
