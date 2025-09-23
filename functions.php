@@ -1,46 +1,35 @@
 <?php
 // functions.php
 
-function current_user() {
-    return isset($_SESSION['LOGGED_USER']) ? $_SESSION['LOGGED_USER'] : null;
-}
-
-function require_login() {
-    if (!current_user()) {
-        header('Location: index.php');
-        exit;
+function isValidRecipe(array $recipe) : bool
+{
+    if (array_key_exists('is_enabled', $recipe)) {
+        $isEnabled = $recipe['is_enabled'];
+    } else {
+        $isEnabled = false;
     }
+
+    return $isEnabled;
 }
 
-function isValidRecipe(array $recipe)
+function displayAuthor(string $authorEmail, array $users) : string
 {
-    return isset($recipe['is_enabled']) ? $recipe['is_enabled'] : false;
-}
-
-function display_author($authorEmail, array $users)
-{
-    foreach ($users as $author) {
+    for ($i = 0; $i < count($users); $i++) {
+        $author = $users[$i];
         if ($authorEmail === $author['email']) {
-            return $author['full_name'] . ' (' . $author['age'] . ' ans)';
+            return $author['full_name'] . '(' . $author['age'] . ' ans)';
         }
     }
-
-    // Auteur non trouvé : on renvoie l'email tel quel
-    return $authorEmail;
 }
 
-function get_recipes(array $recipes, $limit = null)
+function getRecipes(array $recipes) : array
 {
-    $validRecipes = array();
+    $validRecipes = [];
 
-    foreach ($recipes as $recipe) {
+    foreach($recipes as $recipe) {
         if (isValidRecipe($recipe)) {
             $validRecipes[] = $recipe;
         }
-    }
-
-    if ($limit !== null) {
-        return array_slice($validRecipes, 0, (int)$limit);
     }
 
     return $validRecipes;

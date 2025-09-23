@@ -1,11 +1,3 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_set_cookie_params(0, '/');
-    session_start();
-}
-$loggedUser = isset($_SESSION['LOGGED_USER']) ? $_SESSION['LOGGED_USER'] : null;
-?>
-
 <!-- header.php -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
